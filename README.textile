@@ -1,0 +1,61 @@
+h1. xml_generator - easy XML generation with java
+
+by Andrey Yatsyk
+
+h2. Getting Started
+
+I have not found good solution for xml generation in java. Usually I've used org.w3c.dom classes for creating documents but they require too much typing and resulting code is quite unreadable. Current library is just a proof of concept and ideas, features and ideas on changing of the API are welcome!
+
+h2. Sample
+
+<pre>
+        Document x = new Document();
+        x.root(
+            x.tag("html",
+                x.tag("head",
+                    x.tag("title", "title of my page")
+                ),
+                x.tag("body", x.attr("bgcolor", "silver"),
+                    x.tag("h1", "This is a sample"),
+                    x.tag("p",
+                        x.tag("ul", new Document.Element[] {
+                            x.tag("li", "1"),
+                            x.tag("li", "2"),
+                            x.tag("li", "3"),
+                            x.tag("li", "4"),
+                        })
+                    )
+                )
+            )
+        );
+        System.out.println(x.generate("xml"));
+</pre>
+
+Result:
+
+<pre>
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <title>title of my page</title>
+  </head>
+  <body bgcolor="silver">
+    <h1>This is a sample</h1>
+    <p>
+      <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+      </ul>
+    </p>
+  </body>
+</html>
+</pre>
+
+h2. Future Improvements
+
+* Generate JSON from same document
+* Add XML namespace and comments support
+
+
